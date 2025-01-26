@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_flutter_app/core/theme/app_theme.dart';
 import 'package:my_flutter_app/features/dashboard/domain/models/mental_health_balance.dart';
 import 'package:my_flutter_app/features/dashboard/presentation/providers/dashboard_provider.dart';
 import 'package:my_flutter_app/features/dashboard/presentation/widgets/activity_list_item.dart';
@@ -17,7 +16,8 @@ class DashboardPage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () => ref.read(dashboardProvider.notifier).refreshBalance(),
+          onRefresh: () =>
+              ref.read(dashboardProvider.notifier).refreshBalance(),
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -37,7 +37,8 @@ class DashboardPage extends ConsumerWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: balanceState.when(
                     data: (balance) => _buildDashboardContent(context, balance),
-                    loading: () => const Center(child: CircularProgressIndicator()),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
                     error: (error, stack) => Center(
                       child: Text('Error: $error'),
                     ),
@@ -51,7 +52,8 @@ class DashboardPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildDashboardContent(BuildContext context, MentalHealthBalance balance) {
+  Widget _buildDashboardContent(
+      BuildContext context, MentalHealthBalance balance) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,4 +77,4 @@ class DashboardPage extends ConsumerWidget {
       ],
     );
   }
-} 
+}

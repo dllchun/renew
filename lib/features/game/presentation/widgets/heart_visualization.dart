@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app/core/theme/app_theme.dart';
 import 'package:my_flutter_app/features/game/domain/models/mental_health_state.dart';
 
 class HeartVisualization extends StatefulWidget {
@@ -32,7 +31,7 @@ class _HeartVisualizationState extends State<HeartVisualization>
   @override
   void initState() {
     super.initState();
-    
+
     _controller = AnimationController(
       duration: const Duration(seconds: 3),
       vsync: this,
@@ -109,7 +108,10 @@ class _HeartVisualizationState extends State<HeartVisualization>
                     children: [
                       Text(
                         '${(widget.state.percentage * 100).toInt()}%',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
                           color: Colors.white,
                           fontSize: widget.size * 0.2,
                           fontWeight: FontWeight.w800,
@@ -125,7 +127,8 @@ class _HeartVisualizationState extends State<HeartVisualization>
                       if (widget.state.percentage > 0)
                         Text(
                           'Keep going!',
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Colors.white.withOpacity(0.9),
                             fontSize: widget.size * 0.08,
                             fontWeight: FontWeight.w600,
@@ -168,7 +171,7 @@ class HeartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final path = _createHeartPath(size);
-    
+
     // Draw outer glow
     final glowPaint = Paint()
       ..style = PaintingStyle.stroke
@@ -176,7 +179,7 @@ class HeartPainter extends CustomPainter {
       ..strokeWidth = 6
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8);
     canvas.drawPath(path, glowPaint);
-    
+
     // Draw outline
     final outlinePaint = Paint()
       ..style = PaintingStyle.stroke
@@ -196,19 +199,22 @@ class HeartPainter extends CustomPainter {
       final wavePath = Path();
       final waveHeight = size.height * (0.03 + progress * 0.02);
       final baseHeight = size.height * (1 - progress);
-      
+
       wavePath.moveTo(0, size.height);
-      
+
       // Create double wave effect
       for (double i = 0; i <= size.width; i++) {
         final x = i;
         final normalizedX = x / size.width;
-        final primaryWave = math.sin(wavePhase + normalizedX * 4 * math.pi) * waveHeight;
-        final secondaryWave = math.sin(secondaryWavePhase + normalizedX * 6 * math.pi) * (waveHeight * 0.5);
+        final primaryWave =
+            math.sin(wavePhase + normalizedX * 4 * math.pi) * waveHeight;
+        final secondaryWave =
+            math.sin(secondaryWavePhase + normalizedX * 6 * math.pi) *
+                (waveHeight * 0.5);
         final y = baseHeight + primaryWave + secondaryWave;
         wavePath.lineTo(x, y);
       }
-      
+
       wavePath.lineTo(size.width, size.height);
       wavePath.close();
 
@@ -235,8 +241,10 @@ class HeartPainter extends CustomPainter {
       final shinePath = Path();
       shinePath.moveTo(size.width * 0.2, baseHeight - size.height * 0.1);
       shinePath.quadraticBezierTo(
-        size.width * 0.4, baseHeight - size.height * 0.15,
-        size.width * 0.6, baseHeight - size.height * 0.1,
+        size.width * 0.4,
+        baseHeight - size.height * 0.15,
+        size.width * 0.6,
+        baseHeight - size.height * 0.1,
       );
 
       final shinePaint = Paint()
@@ -245,7 +253,7 @@ class HeartPainter extends CustomPainter {
         ..strokeWidth = 2
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3);
       canvas.drawPath(shinePath, shinePaint);
-      
+
       canvas.restore();
     }
   }
@@ -254,7 +262,7 @@ class HeartPainter extends CustomPainter {
     final path = Path();
     final width = size.width;
     final height = size.height;
-    
+
     final centerX = width / 2;
     final centerY = height / 2;
 
@@ -267,31 +275,39 @@ class HeartPainter extends CustomPainter {
 
     // Left curve - smooth bottom to side
     path.cubicTo(
-      centerX - adjustedWidth * 0.35, centerY + adjustedHeight * 0.25,
-      centerX - adjustedWidth * 0.4, centerY + adjustedHeight * 0.05,
-      centerX - adjustedWidth * 0.4, centerY - adjustedHeight * 0.05
-    );
+        centerX - adjustedWidth * 0.35,
+        centerY + adjustedHeight * 0.25,
+        centerX - adjustedWidth * 0.4,
+        centerY + adjustedHeight * 0.05,
+        centerX - adjustedWidth * 0.4,
+        centerY - adjustedHeight * 0.05);
 
     // Left arc - top lobe
     path.cubicTo(
-      centerX - adjustedWidth * 0.4, centerY - adjustedHeight * 0.3,
-      centerX - adjustedWidth * 0.25, centerY - adjustedHeight * 0.35,
-      centerX, centerY - adjustedHeight * 0.3
-    );
+        centerX - adjustedWidth * 0.4,
+        centerY - adjustedHeight * 0.3,
+        centerX - adjustedWidth * 0.25,
+        centerY - adjustedHeight * 0.35,
+        centerX,
+        centerY - adjustedHeight * 0.3);
 
     // Right arc - top lobe (mirrored)
     path.cubicTo(
-      centerX + adjustedWidth * 0.25, centerY - adjustedHeight * 0.35,
-      centerX + adjustedWidth * 0.4, centerY - adjustedHeight * 0.3,
-      centerX + adjustedWidth * 0.4, centerY - adjustedHeight * 0.05
-    );
+        centerX + adjustedWidth * 0.25,
+        centerY - adjustedHeight * 0.35,
+        centerX + adjustedWidth * 0.4,
+        centerY - adjustedHeight * 0.3,
+        centerX + adjustedWidth * 0.4,
+        centerY - adjustedHeight * 0.05);
 
     // Right curve - smooth side to bottom (mirrored)
     path.cubicTo(
-      centerX + adjustedWidth * 0.4, centerY + adjustedHeight * 0.05,
-      centerX + adjustedWidth * 0.35, centerY + adjustedHeight * 0.25,
-      centerX, centerY + adjustedHeight * 0.35
-    );
+        centerX + adjustedWidth * 0.4,
+        centerY + adjustedHeight * 0.05,
+        centerX + adjustedWidth * 0.35,
+        centerY + adjustedHeight * 0.25,
+        centerX,
+        centerY + adjustedHeight * 0.35);
 
     return path;
   }
@@ -299,9 +315,9 @@ class HeartPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant HeartPainter oldDelegate) {
     return oldDelegate.progress != progress ||
-           oldDelegate.color != color ||
-           oldDelegate.wavePhase != wavePhase ||
-           oldDelegate.secondaryWavePhase != secondaryWavePhase ||
-           oldDelegate.glowOpacity != glowOpacity;
+        oldDelegate.color != color ||
+        oldDelegate.wavePhase != wavePhase ||
+        oldDelegate.secondaryWavePhase != secondaryWavePhase ||
+        oldDelegate.glowOpacity != glowOpacity;
   }
-} 
+}

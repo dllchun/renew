@@ -54,13 +54,14 @@ class BalanceChart extends StatelessWidget {
                 reservedSize: 30,
                 interval: 1,
                 getTitlesWidget: (value, meta) {
-                  if (value.toInt() >= weeklyPoints.length) return const Text('');
+                  if (value.toInt() >= weeklyPoints.length)
+                    return const Text('');
                   final date = weeklyPoints[value.toInt()].date;
                   return Text(
                     _getDayLabel(date),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppTheme.textSecondaryColor,
-                    ),
+                          color: AppTheme.textSecondaryColor,
+                        ),
                   );
                 },
               ),
@@ -74,8 +75,8 @@ class BalanceChart extends StatelessWidget {
                   return Text(
                     value.toInt().toString(),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppTheme.textSecondaryColor,
-                    ),
+                          color: AppTheme.textSecondaryColor,
+                        ),
                   );
                 },
               ),
@@ -93,7 +94,7 @@ class BalanceChart extends StatelessWidget {
               gradient: const LinearGradient(
                 colors: [
                   AppTheme.primaryColor,
-                  AppTheme.secondaryColor,
+                  AppTheme.warningColor,
                 ],
               ),
               barWidth: 3,
@@ -133,7 +134,8 @@ class BalanceChart extends StatelessWidget {
   }
 
   double _getMaxY() {
-    final maxPoint = weeklyPoints.map((p) => p.points).reduce((a, b) => a > b ? a : b);
+    final maxPoint =
+        weeklyPoints.map((p) => p.points).reduce((a, b) => a > b ? a : b);
     return (maxPoint + 50).toDouble();
   }
 
@@ -146,4 +148,4 @@ class BalanceChart extends StatelessWidget {
       ),
     );
   }
-} 
+}

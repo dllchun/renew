@@ -20,7 +20,7 @@ class BalanceCard extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             AppTheme.primaryColor,
-            AppTheme.secondaryColor,
+            AppTheme.warningColor,
           ],
         ),
         borderRadius: BorderRadius.circular(24),
@@ -41,11 +41,12 @@ class BalanceCard extends StatelessWidget {
               Text(
                 'Current Balance',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.white.withOpacity(0.8),
-                ),
+                      color: Colors.white.withOpacity(0.8),
+                    ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
@@ -62,9 +63,9 @@ class BalanceCard extends StatelessWidget {
                     Text(
                       '+10%',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                   ],
                 ),
@@ -75,9 +76,9 @@ class BalanceCard extends StatelessWidget {
           Text(
             '${balance.points} pts',
             style: Theme.of(context).textTheme.displayLarge?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
           ),
           const SizedBox(height: 24),
           Row(
@@ -129,19 +130,19 @@ class BalanceCard extends StatelessWidget {
             Text(
               label,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Colors.white.withOpacity(0.8),
-              ),
+                    color: Colors.white.withOpacity(0.8),
+                  ),
             ),
             Text(
               value,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
             ),
           ],
         ),
       ],
     );
   }
-} 
+}

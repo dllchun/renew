@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../../shared/theme/app_theme.dart';
 import '../../../../shared/widgets/app_button.dart';
 import '../../../../shared/widgets/app_scaffold.dart';
-import '../../../../main.dart';
+import '../../../../shared/models/menu_item.dart';
+import '../../../../main.dart' show menuItems;
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -18,17 +19,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final List<OnboardingStep> _steps = [
     OnboardingStep(
       title: 'Track Your Mental Health',
-      description: 'Monitor your daily activities and their impact on your mental well-being, just like a savings account.',
+      description:
+          'Monitor your daily activities and their impact on your mental well-being, just like a savings account.',
       icon: Icons.account_balance,
     ),
     OnboardingStep(
       title: 'Earn Points',
-      description: 'Get rewarded for positive activities like sleeping well, exercising, and practicing mindfulness.',
+      description:
+          'Get rewarded for positive activities like sleeping well, exercising, and practicing mindfulness.',
       icon: Icons.stars,
     ),
     OnboardingStep(
       title: 'Stay Mindful',
-      description: 'Log activities that may drain your mental health and learn to maintain a healthy balance.',
+      description:
+          'Log activities that may drain your mental health and learn to maintain a healthy balance.',
       icon: Icons.psychology,
     ),
   ];
@@ -48,7 +52,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => AppScaffold(items: navigationItems),
+          builder: (context) => AppScaffold(items: menuItems),
         ),
       );
     }
@@ -121,7 +125,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                   const SizedBox(height: AppTheme.mediumPadding),
                   AppButton(
-                    text: _currentPage == _steps.length - 1 ? 'Get Started' : 'Next',
+                    text: _currentPage == _steps.length - 1
+                        ? 'Get Started'
+                        : 'Next',
                     width: double.infinity,
                     onPressed: _onNextPressed,
                   ),
@@ -145,4 +151,4 @@ class OnboardingStep {
     required this.description,
     required this.icon,
   });
-} 
+}
